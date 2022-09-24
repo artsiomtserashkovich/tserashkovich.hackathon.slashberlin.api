@@ -21,8 +21,7 @@ const params = {
     search_term: "macbook",
 };
 
-const products = [];
-var chosenProduct;
+const productArray = [];
 
 // make the http GET request to Rainforest API
 axios
@@ -45,58 +44,16 @@ axios
                 price: product.price.value,
             };
             // add the data to a array
-            products.push(data);
+            productArray.push(data);
         });
 
-        // print array of products
+        // print array of productArray
 
-        console.log(products);
-        // export the array of products
-        exports.products = products;
+        console.log(productArray);
+        // export the array of productArray
+        exports.productArray = productArray;
     })
     .catch((error) => {
         // catch and print the error
         console.log(error);
     });
-
-// function to search for a product
-async function searchProduct(asin) {
-    const params = {
-        api_key: "EBB9CA733E4F49F38A71ED2E7A4062AD",
-        type: "product",
-        amazon_domain: "amazon.de",
-        asin: asin,
-    };
-
-    // make the http GET request to Rainforest API
-    axios
-        .get("https://api.rainforestapi.com/request", { params })
-        .then((response) => {
-            // print the JSON response from Rainforest API
-            // console.log(JSON.stringify(response.data, 0, 2));
-            // console.log(response.data);
-
-            const product = {
-                brand: response.data.product.brand,
-                description: response.data.product.description,
-                asin: response.data.product.asin,
-            };
-            // find the product in the array of products using the asin and add the brand and description to the product
-            var chosenProduct;
-            products.forEach((product) => {
-                if (product.asin == asin) {
-                    chosenProduct = product;
-
-                    chosenProduct.brand = response.data.product.brand;
-                    chosenProduct.description =
-                        response.data.product.description;
-                    console.log(chosenProduct);
-                }
-            });
-            // console.log(response);
-        })
-        .catch((error) => {
-            // catch and print the error
-            console.log(error);
-        });
-}
