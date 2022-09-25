@@ -12,7 +12,6 @@
                 "<node_internals>/**"
             ],
             "console": "integratedTerminal",
-            // "program": "${workspaceFolder}/productList.js"
             "program": "${workspaceFolder}/productOffers.js"
         }
     ]
